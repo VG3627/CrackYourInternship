@@ -13,35 +13,29 @@ typedef long long ll;
 #define ss     second 
 #define endl  "\n"
 using namespace std;
-int dp[30001][2] ;
 class Solution {
 public:
-    
-    int recur(vector<int>& a,int i,int flg)
-    {
-        if(i >= a.size())
+    int maxProfit(vector<int>&a) {
+
+
+        int ans = 0 ;
+        int minm = INT_MAX ;
+        for(int i=0;i<a.size();i++)
         {
-            return 0 ;
-        }
-        if(dp[i][flg] != -1)
-        {
-            return dp[i][flg] ;
-        }
-        if(flg == 0)
-        {
-            return dp[i][flg] = max(recur(a,i+1,flg),-1*a[i] + recur(a,i+1,flg^1)) ;
-        }
-        else
-        {
-            return dp[i][flg] = max(recur(a,i+1,flg),a[i] + recur(a,i+1,flg^1)) ;
+            // cout<<minm<<" "<<a[i]<<"\n" ;
+           if(a[i] > minm)
+           {
+              ans += a[i] - minm ;
+              minm = INT_MAX ;
+           }
+
+           minm = min(minm,a[i]) ;
+
+
         }
 
-    }
-    int maxProfit(vector<int>& a) {
+        return ans ;
         
-        memset(dp,-1,sizeof(dp)) ;
-        int z = recur(a,0,0) ;
-        return z ;
     }
 };
 void solve()
